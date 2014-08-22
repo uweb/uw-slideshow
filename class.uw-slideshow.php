@@ -129,13 +129,14 @@ class UW_Slideshow
 
     $slides = (object) get_post_meta( $atts->id , 'slides', true );
 
-    echo '<div class="uw-slideshow">';
+   
+    $slidereturn = '<div class="uw-slideshow">';
 
     foreach ($slides as $slide )
     {
       $slide = (object) $slide;
       $slide->esctitle = esc_attr( $slide->title );
-      echo "<div class='slide'>
+      $slidereturn .=  "<div class='slide'>
               <img src='{$slide->image}' title='{$slide->esctitle}' />
               <div>
                 <h3><a href='{$slide->link} title='{$slide->esctitle}'>{$slide->title}</a></h3>
@@ -143,14 +144,17 @@ class UW_Slideshow
               </div>
             </div>";
     }
+    return $slidereturn . '</div>';
 
-    echo '</div>';
+
   }
 
   function get_current_uw_slideshow()
   {
 
     $slides = get_post_meta( $_GET['id'], 'slides', true );
+
+    echo '<div class="uw-slideshow">';
 
     foreach ($slides as $slide )
     {
