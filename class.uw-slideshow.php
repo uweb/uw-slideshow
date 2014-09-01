@@ -104,7 +104,7 @@ class UW_Slideshow
 
   function register_slideshow_assets()
   {
-    wp_enqueue_script( self::POST_TYPE, plugins_url( 'js/admin.uw-slideshow.js', __FILE__ ), array('backbone', 'jquery-ui-sortable') );
+    wp_enqueue_script( self::POST_TYPE, plugins_url( 'js/admin.uw-slideshow.dev.js', __FILE__ ), array('backbone', 'jquery-ui-sortable') );
     wp_enqueue_style( self::POST_TYPE, plugins_url( 'css/admin.uw-slideshow.css', __FILE__ ) );
     wp_enqueue_media();
   }
@@ -129,7 +129,7 @@ class UW_Slideshow
 
     $slides = (object) get_post_meta( $atts->id , 'slides', true );
 
-   
+
     $slidereturn = '<div class="uw-slideshow">';
 
     foreach ($slides as $slide )
@@ -153,8 +153,6 @@ class UW_Slideshow
   {
 
     $slides = get_post_meta( $_GET['id'], 'slides', true );
-
-    echo '<div class="uw-slideshow">';
 
     foreach ($slides as $slide )
     {
