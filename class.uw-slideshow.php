@@ -139,7 +139,7 @@ class UW_Slideshow
       $slidereturn .=  "<div class='slide'>
               <img src='{$slide->image}' title='{$slide->esctitle}' />
               <div>
-                <h3><a href='{$slide->link} title='{$slide->esctitle}'>{$slide->title}</a></h3>
+                <h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a></h3>
                 <p>{$slide->text}</p>
               </div>
             </div>";
