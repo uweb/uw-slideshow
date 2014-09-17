@@ -1,5 +1,5 @@
 <?php
-/**
+/**!
  * Plugin Name: UW Slideshow
  * Plugin URI: http://uw.edu/brand/web/#slideshow
  * Description: Put a slideshow on your pages and posts.
@@ -162,6 +162,20 @@ class UW_Slideshow
 
   }
 
+  // Helper functions
+  public function get_latest_slideshow()
+  {
+
+    $slideshow = array_shift( get_posts( array(
+      'post_type'   => self::POST_TYPE,
+      'numberposts' => 1
+    ) ) );
+
+    $slides = get_post_meta( $slideshow->ID, 'slides', true );
+
+    return array_reverse( $slides );
+
+  }
 
 
 }
