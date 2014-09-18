@@ -58,16 +58,17 @@ Slideshow.View = Backbone.View.extend({
 
   template :
       '<div class="slide" data-index="<%= id %>">' +
-      '<p><%= id %> </p>' +
         '<div class="image">' +
-          '<image class="admin-slideshow-image" src="<%= image %>" width="250" height="130"/>' +
+          '<image class="admin-slideshow-image" src="<%= image %>" width="100%"/>' +
           '<input type="hidden" name="slides[<%= id %>][image]" value="<%= image %>"/>' +
         '</div>' +
-        '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%= title %>" /></p>' +
-        '<p>Text  : <input type="text" name="slides[<%= id %>][text]" value="<%= text %>" /></p>' +
-        '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%= link %>" /></p>' +
-        '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
-        '<a class="remove-slide"> Remove </a>' +
+        '<div class="form">' +
+          '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%= title %>" /></p>' +
+          '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" value="<%= text %>" style="resize:none; width:100%;" ></textarea></p>' +
+          '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%= link %>" /></p>' +
+          '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
+          '<a class="remove-slide"> Remove </a>' +
+        '</div>' +
       '</div>',
 
   initialize : function( options )

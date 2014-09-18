@@ -1,1 +1,1 @@
-#slideshow .inside div.slide{display:block;padding:30px;border:thin solid gray}#slideshow .inside div.slide .image{float:left;width:400px;height:200px;text-align:center}
+#slideshow .inside div.slide{display:block;padding:30px;border:thin solid gray;height:280px}#slideshow .inside div.slide .image{float:left;width:35%;height:200px;text-align:center;padding-right:5%;padding-top:40px}#slideshow .inside div.slide .form{float:left;width:60%}#slideshow .inside div.slide .form input{width:100%}#slideshow .inside div.slide .form textarea{height:100px;resize:none}

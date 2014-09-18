@@ -160,6 +160,7 @@ class UW_Slideshow
     {
       $slideshow[] = $slide;
     }
+
     wp_die( json_encode( $slideshow ) );
 
   }
