@@ -173,7 +173,7 @@ class UW_Slideshow
 
     $slides = get_post_meta( $slideshow->ID, 'slides', true );
 
-    return $slides ? array_reverse( $slides ) : array();
+    return $slides ? json_decode( json_encode( array_reverse( $slides ) ) ) : array();
 
   }
 
