@@ -154,6 +154,8 @@ class UW_Slideshow
 
     $slides = get_post_meta( $_GET['id'], 'slides', true );
 
+    $slides = $slides ? $slides : array();
+
     foreach ($slides as $slide )
     {
       $slideshow[] = $slide;
