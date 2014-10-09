@@ -136,13 +136,13 @@ class UW_Slideshow
     {
       $slide = (object) $slide;
       $slide->esctitle = esc_attr( $slide->title );
-      $slidereturn .=  "<div class='slide'>
-              <img src='{$slide->image}' title='{$slide->esctitle}' />
-              <div>
-                <h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a></h3>
-                <p>{$slide->text}</p>
-              </div>
-            </div>";
+      $slidereturn .=  "<div class='slide'>" .
+              "<img src='{$slide->image}' title='{$slide->esctitle}' />" .
+              "<div>" .
+                "<h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a></h3>".
+                "<p>{$slide->text}</p>" .
+              "</div>" .
+            "</div>";
     }
     return $slidereturn . '</div>';
 
