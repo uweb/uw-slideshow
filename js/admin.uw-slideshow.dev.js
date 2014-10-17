@@ -7,7 +7,8 @@ Slideshow.Slide = Backbone.Model.extend({
       title : null,
       text  : null,
       link  : null,
-      image : 'wp-content/plugins/uw-slideshow/assets/placeholder.png'
+      image : 'wp-content/plugins/uw-slideshow/assets/placeholder.png',
+      mobileimage : 'wp-content/plugins/uw-slideshow/assets/placeholder.png'
   },
 
 })
@@ -45,6 +46,7 @@ Slideshow.View = Backbone.View.extend({
 
   events : {
     'click .admin-slideshow-image' : 'openMediaFrame',
+    'click .admin-slideshow-mobile-image' : 'openMobileMediaFrame',
     'click #add-new-slide' : 'addNewSlideBox',
     'click .remove-slide'  : 'removeSlide'
   },
@@ -62,6 +64,10 @@ Slideshow.View = Backbone.View.extend({
           '<image class="admin-slideshow-image" src="<%= image %>" width="100%"/>' +
           '<input type="hidden" name="slides[<%= id %>][image]" value="<%= image %>"/>' +
         '</div>' +
+        '<div class="mobile-image">' +
+          '<image class="admin-slideshow-mobile-image" src="<%= mobileimage %>" width="100%"/>' +
+          '<input type="hidden" name="slides[<%= id %>][mobileimage]" value="<%= mobileimage %>"/>' +
+        '</div>' +
         '<div class="form">' +
           '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%= title %>" /></p>' +
           '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%= text %></textarea></p>' +
@@ -73,7 +79,7 @@ Slideshow.View = Backbone.View.extend({
 
   initialize : function( options )
   {
-    _.bindAll( this, 'render', 'addSlideBox', 'openMediaFrame', 'selectImage', 'reorder', 'setIndex' )
+    _.bindAll( this, 'render', 'addSlideBox', 'openMediaFrame', 'openMobileMediaFrame', 'selectImage', 'reorder', 'setIndex' )
 
     this.options = _.extend( {}, this.settings , this.$el.data(), options )
 
@@ -103,6 +109,14 @@ Slideshow.View = Backbone.View.extend({
 
   openMediaFrame : function( e )
   {
+    this.mobile = false;
+    this.id = this.$( e.currentTarget ).closest('[data-index]').data().index
+    this.mediaframe.open()
+  },
+
+  openMobileMediaFrame : function( e )
+  {
+    this.mobile = true;
     this.id = this.$( e.currentTarget ).closest('[data-index]').data().index
     this.mediaframe.open()
   },
@@ -110,7 +124,10 @@ Slideshow.View = Backbone.View.extend({
   selectImage : function()
   {
     var media = this.mediaframe.state().get('selection').first().toJSON()
-    this.collection.get( this.id ).set( 'image', media.url )
+    if ( this.mobile )
+     this.collection.get( this.id ).set( 'mobileimage', media.url )
+    else
+     this.collection.get( this.id ).set( 'image', media.url )
   },
 
   addNewSlideBox : function( e )

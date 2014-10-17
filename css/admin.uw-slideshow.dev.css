@@ -2,8 +2,9 @@
   display: block;
   padding: 30px;
   border: thin solid gray;
-  height: 280px;
+  height: 540px;
 }
+#slideshow .inside div.slide .mobile-image,
 #slideshow .inside div.slide .image {
   float: left;
   width: 35%;
