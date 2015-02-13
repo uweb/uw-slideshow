@@ -11,3 +11,5 @@ Each slide has a designated shortcode that can be used.
 
 
 There is a method that creates a JSON feed of the slideshows allowing the creation of the custom templates.
+The function `UW_Slideshow::get_latest_slideshow()` returns a JSON object of the most recently created slideshow 
+which can be used in any template file. You can loop through the individual slides and template them accordingly. 
