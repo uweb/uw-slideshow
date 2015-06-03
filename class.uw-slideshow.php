@@ -123,12 +123,11 @@ class UW_Slideshow
   function shortcode( $atts )
   {
 
-    print_r($atts);
     $atts = (object) shortcode_atts( array(
       id => null,
       simple => false,
     ), $atts);
-    print_r($atts);
+
     if ( ! $atts->id ) return;
 
     $slides = (object) get_post_meta( $atts->id, 'slides', true );
