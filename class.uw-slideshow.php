@@ -71,6 +71,7 @@ class UW_Slideshow
     </ul>
       <p>
         <a id="add-new-slide" class="alignleft button-secondary" href="#">Add a New Slide</a>
+        <input type="checkbox" name="slidetype" value="simple"> Simple photo gallery
       </p>
 
     <?php
@@ -121,16 +122,23 @@ class UW_Slideshow
 
   function shortcode( $atts )
   {
-    $atts = (object) shortcode_atts( array(
-      id => null
-    ), $atts);
 
+    print_r($atts);
+    $atts = (object) shortcode_atts( array(
+      id => null,
+      simple => false,
+    ), $atts);
+    print_r($atts);
     if ( ! $atts->id ) return;
 
-    $slides = (object) get_post_meta( $atts->id , 'slides', true );
+    $slides = (object) get_post_meta( $atts->id, 'slides', true );
 
 
-    $slidereturn = '<div class="uw-slideshow">';
+   // 137-141 Creates for a simple slideshow
+
+    $class = ( $atts->simple === "true" ? ' photo-slider' : null);
+
+    $slidereturn = '<div class="uw-slideshow' . $class . '">';
 
     foreach ($slides as $slide )
     {
