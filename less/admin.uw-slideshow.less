@@ -13,13 +13,50 @@
           float:left;
           width: 45%;
           max-width: 400px;
-          height:270px;
           padding-right: 5%;
           padding-top: 40px;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
           img {
             width: auto;
             max-width: 100%;
             max-height: 100%;
+          }
+          &:before {
+            background-color: #4B2E83;
+            top: 40px;
+            bottom: 4px;
+            width: 300px;
+            left: -400px;
+            transform: skew(-15deg);
+            content: "";
+            position: absolute;
+            display: block;
+            transition: all linear .1s;
+            opacity: .9;
+          }
+          &:after {
+            color: #FFF;
+            bottom: 4px;
+            content: "Edit image";
+            font-family: 'Encode Sans Compressed', sans-serif;
+            font-weight: 900;
+            font-size: 15px;
+            text-transform: uppercase;
+            position: absolute;
+            display: block;
+            top: 52%;
+            left: -170px;            
+            transition: all linear .1s;
+          }
+          &:hover {
+            &:before {
+              left: -170px;
+            }
+            &:after {
+              left: 30px;
+            }
           }
       }
 
