@@ -73,7 +73,7 @@ Slideshow.View = Backbone.View.extend({
           '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%= text %></textarea></p>' +
           '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%= link %>" /></p>' +
           '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
-          '<a class="button-primary remove-slide"> Remove </a>' +
+          '<a class="button-secondary remove-slide"> Remove </a>' +
         '</div>' +
       '</div>',
 
