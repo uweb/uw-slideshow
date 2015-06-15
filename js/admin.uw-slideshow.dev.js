@@ -8,7 +8,7 @@ Slideshow.Slide = Backbone.Model.extend({
       text  : null,
       link  : null,
       image : 'wp-content/plugins/uw-slideshow/assets/placeholder.png',
-      mobileimage : 'wp-content/plugins/uw-slideshow/assets/placeholder.png'
+      mobileimage : 'wp-content/plugins/uw-slideshow/assets/placeholder-mobile.png'
   },
 
 })
@@ -73,7 +73,7 @@ Slideshow.View = Backbone.View.extend({
           '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%= text %></textarea></p>' +
           '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%= link %>" /></p>' +
           '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
-          '<a class="remove-slide"> Remove </a>' +
+          '<a class="button-primary remove-slide"> Remove </a>' +
         '</div>' +
       '</div>',
 

@@ -70,8 +70,7 @@ class UW_Slideshow
     <ul>
     </ul>
       <p>
-        <a id="add-new-slide" class="alignleft button-secondary" href="#">Add a New Slide</a>
-        <input type="checkbox" name="slidetype" value="simple"> Simple photo gallery
+        <a id="add-new-slide" class="button-primary" href="#">Add a New Slide</a>
       </p>
 
     <?php
@@ -143,7 +142,7 @@ class UW_Slideshow
     {
       $slide = (object) $slide;
       $slide->esctitle = esc_attr( $slide->title );
-      $slidereturn .=  "<div class='slide'>" .
+      $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
               "<a href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
               "<div>" .
                 "<h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a></h3>".
