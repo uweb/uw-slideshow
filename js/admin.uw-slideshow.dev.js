@@ -133,6 +133,7 @@ Slideshow.View = Backbone.View.extend({
   addNewSlideBox : function( e )
   {
     this.collection.push( new Slideshow.Slide({ id: _.uniqueId() }) )
+    console.log('worked')
   },
 
   removeSlide : function( e ) {
