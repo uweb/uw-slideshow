@@ -145,7 +145,8 @@ class UW_Slideshow
       $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
               "<a href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
               "<div>" .
-                "<h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a></h3>".
+                "<h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a>".
+                "</h3>".
                 "<p>{$slide->text}</p>" .
               "</div>" .
             "</div>";

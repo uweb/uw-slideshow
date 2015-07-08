@@ -7,6 +7,7 @@ Slideshow.Slide = Backbone.Model.extend({
       title : null,
       text  : null,
       link  : null,
+      dark : null,
       image : 'wp-content/plugins/uw-slideshow/assets/placeholder.png',
       mobileimage : 'wp-content/plugins/uw-slideshow/assets/placeholder-mobile.png'
   },
@@ -67,6 +68,9 @@ Slideshow.View = Backbone.View.extend({
         '<div class="mobile-image">' +
           '<image class="admin-slideshow-mobile-image" src="<%= mobileimage %>" width="100%"/>' +
           '<input type="hidden" name="slides[<%= id %>][mobileimage]" value="<%= mobileimage %>"/>' +
+        '</div>' +
+        '<div class="dark-text">'+
+          '<p>Use darker text? <input type="checkbox" name="slides[<%= id %>][dark]" value="checked" <%= dark %> /> </p>' +
         '</div>' +
         '<div class="form">' +
           '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%= title %>" /></p>' +
