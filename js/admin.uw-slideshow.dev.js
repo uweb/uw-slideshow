@@ -7,8 +7,8 @@ Slideshow.Slide = Backbone.Model.extend({
       title : null,
       text  : null,
       link  : null,
-      image : 'wp-content/plugins/uw-slideshow/assets/placeholder.png',
-      mobileimage : 'wp-content/plugins/uw-slideshow/assets/placeholder-mobile.png'
+      image : '/wp-content/plugins/uw-slideshow/assets/placeholder.png',
+      mobileimage : '/wp-content/plugins/uw-slideshow/assets/placeholder-mobile.png'
   },
 
 })
