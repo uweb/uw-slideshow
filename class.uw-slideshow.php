@@ -80,14 +80,14 @@ class UW_Slideshow
   function save_slideshow( $post_id ) {
 
 
-    if ( ! empty( $_POST ) && check_admin_referer( self::POST_TYPE . '_meta_box_nonce') && !wp_verify_nonce( $_POST[ self::POST_TYPE . '_meta_box_nonce'], self::POST_TYPE . '_meta_box') ) {
+    if ( ! empty( $_POST ) &&  !wp_verify_nonce( $_POST[ self::POST_TYPE . '_meta_box_nonce'], self::POST_TYPE . '_meta_box') ) {
         return $post_id;
     }
 
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
         return $post_id;
 
-    if ( ! empty( $_POST ) && check_admin_referer( 'post_type') && self::POST_TYPE == $_POST['post_type'] ) {
+    if ( ! empty( $_POST )  && self::POST_TYPE == $_POST['post_type'] ) {
         if ( !current_user_can( 'edit_page', $post_id ) )
             return $post_id;
 
@@ -173,13 +173,14 @@ class UW_Slideshow
   }
 
   // Helper functions
-  public function get_latest_slideshow()
+  static public function get_latest_slideshow()
   {
-
-    $slideshow = array_shift( get_posts( array(
+    $posts = get_posts( array(
       'post_type'   => self::POST_TYPE,
       'numberposts' => 1
-    ) ) );
+    ) );
+
+    $slideshow = array_shift( $posts );
 
     $slides = get_post_meta( $slideshow->ID, 'slides', true );
 
