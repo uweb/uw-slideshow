@@ -20,7 +20,7 @@ class UW_Slideshow
     add_action( 'init', array( $this, 'register_slideshow_post_type' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'register_slideshow_assets' ) );
     add_action( 'wp_ajax_get_current_uw_slideshow', array( $this, 'get_current_uw_slideshow') );
-    add_action( 'save_post', array( $this, 'save_slideshow') );
+    add_action( 'save_post_' . self::POST_TYPE , array( $this, 'save_slideshow') );
 
     add_filter( 'manage_'. self::POST_TYPE .'_posts_columns', array( $this, 'add_shortcode_column' ) );
     add_action( 'manage_posts_custom_column' , array( $this, 'add_shortcode_column_content' ) , 10, 2 );
@@ -78,7 +78,6 @@ class UW_Slideshow
   }
 
   function save_slideshow( $post_id ) {
-
 
     if ( ! empty( $_POST ) && ! check_admin_referer( self::POST_TYPE . '_meta_box', self::POST_TYPE . '_meta_box_nonce' ) ) {
         return $post_id;
