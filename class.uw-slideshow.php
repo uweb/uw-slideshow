@@ -173,13 +173,14 @@ class UW_Slideshow
   }
 
   // Helper functions
-  public function get_latest_slideshow()
+  static public function get_latest_slideshow()
   {
-
-    $slideshow = array_shift( get_posts( array(
+    $posts = get_posts( array(
       'post_type'   => self::POST_TYPE,
       'numberposts' => 1
-    ) ) );
+    ) );
+
+    $slideshow = array_shift( $posts );
 
     $slides = get_post_meta( $slideshow->ID, 'slides', true );
 
