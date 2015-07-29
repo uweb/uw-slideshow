@@ -70,10 +70,10 @@ Slideshow.View = Backbone.View.extend({
           '<input type="hidden" name="slides[<%= id %>][mobileimage]" value="<%= mobileimage %>"/>' +
         '</div>' +
         '<div class="form">' +
-          '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%= title %>" /></p>' +
-          '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%= text %></textarea></p>' +
+          '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%- title %>" /></p>' +
+          '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%- text %></textarea></p>' +
           '<p> <input type="checkbox" name="slides[<%= id %>][dark]" style="width:auto" value="checked" <%= dark %> />Use darker text </p>' +
-          '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%= link %>" /></p>' +
+          '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%- link %>" /></p>' +
           '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
           '<a class="button-secondary remove-slide"> Remove </a>' +
         '</div>' +
