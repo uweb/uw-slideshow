@@ -135,16 +135,16 @@ class UW_Slideshow
 
     $class = ( $atts->simple === "true" ? ' photo-slider' : null);
 
-    $slidereturn = '<div class="uw-slideshow' . $class . '">';
+    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $class . '">';
 
     foreach ($slides as $slide )
     {
       $slide = (object) $slide;
       $slide->esctitle = esc_attr( $slide->title );
       $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
-              "<a href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
+              "<a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
               "<div>" .
-                "<h3><a href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a>".
+                "<h3 tabIndex='-1'><a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a>".
                 "</h3>".
                 "<p>{$slide->text}</p>" .
               "</div>" .
