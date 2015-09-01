@@ -19,11 +19,17 @@
           position: relative;
           overflow: hidden;
           cursor: pointer;
+
           img {
             width: auto;
             max-width: 100%;
             max-height: 100%;
+            min-height: 130px;
+            min-width: 90%;
+            background-color: #E9E9E9;
+            cursor: pointer;
           }
+          
           &:before,
           &:after {            
             content: "";
@@ -66,6 +72,8 @@
       }
 
       .form {
+        float:left;
+        width:60%;        
         display: block;
         clear: both;
         padding-top: 10px;
