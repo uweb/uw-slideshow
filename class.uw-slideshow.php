@@ -135,7 +135,7 @@ class UW_Slideshow
 
     $class = ( $atts->simple === "true" ? ' photo-slider' : null);
 
-    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $class . '">';
+    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $class . ' ' . 'slideshow-' . $atts->id . '">';
 
     foreach ($slides as $slide )
     {
