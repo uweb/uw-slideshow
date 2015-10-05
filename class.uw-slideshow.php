@@ -4,7 +4,7 @@
  * Plugin URI: http://uw.edu/brand/web/#slideshow
  * Description: Put a slideshow on your pages and posts.
  * Version: 1.0
- * Author: UW Web Team 
+ * Author: UW Web Team
  */
 
 class UW_Slideshow
