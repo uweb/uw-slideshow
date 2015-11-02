@@ -122,8 +122,8 @@ class UW_Slideshow
   {
 
     $atts = (object) shortcode_atts( array(
-      id => null,
-      simple => false,
+      'id' => null,
+      'simple' => false,
     ), $atts);
 
     if ( ! $atts->id ) return;
