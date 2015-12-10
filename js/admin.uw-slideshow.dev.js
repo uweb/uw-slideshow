@@ -7,7 +7,8 @@ Slideshow.Slide = Backbone.Model.extend({
       title : null,
       text  : null,
       link  : null,
-      dark : null,
+      dark  : null,
+      darkmobile  : null, 
       image : '/wp-content/plugins/uw-slideshow/assets/placeholder.png',
       mobileimage : '/wp-content/plugins/uw-slideshow/assets/placeholder-mobile.png'
   },
@@ -72,7 +73,7 @@ Slideshow.View = Backbone.View.extend({
         '<div class="form">' +
           '<p>Title : <input type="text" name="slides[<%= id %>][title]" value="<%- title %>" /></p>' +
           '<p>Text  : <br/><textarea type="text" name="slides[<%= id %>][text]" style="resize:none; width:100%;" ><%- text %></textarea></p>' +
-          '<p> <input type="checkbox" name="slides[<%= id %>][dark]" style="width:auto" value="checked" <%= dark %> />Use darker text </p>' +
+          '<p>Use darker text: <br/><input type="checkbox" name="slides[<%= id %>][dark]" style="width:auto" value="checked" <%= dark %> /> Desktop <br/><input type="checkbox" name="slides[<%= id %>][darkmobile]" style="width:auto" value="checked" <%= darkmobile %> /> Mobile</p>' +
           '<p>Link  :<input type="text" name="slides[<%= id %>][link]" value="<%- link %>" /></p>' +
           '<input type="hidden" name="slides[<%= id %>][id]" value="<%= id %>"/>' +
           '<a class="button-secondary remove-slide"> Remove </a>' +
