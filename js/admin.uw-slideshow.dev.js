@@ -32,6 +32,7 @@ Slideshow.Slides = Backbone.Collection.extend({
   url : function()
   {
     return ajaxurl + '?' + jQuery.param( _.extend( this.parameters, { id : jQuery('#post_ID').val() } ) )
+    console.log(ajaxurl)
   },
 
   initialize: function()
@@ -107,7 +108,7 @@ Slideshow.View = Backbone.View.extend({
 
   addSlideBox : function( slide, index )
   {
-    this.$el.append( _.template( this.template, slide.toJSON() ) )
+    this.$el.append( _.template( this.template )( slide.toJSON() ) )
   },
 
   openMediaFrame : function( e )
