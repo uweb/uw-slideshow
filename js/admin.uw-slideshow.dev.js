@@ -107,7 +107,9 @@ Slideshow.View = Backbone.View.extend({
 
   addSlideBox : function( slide, index )
   {
-    this.$el.append( _.template( this.template, slide.toJSON() ) )
+    var template = _.template( this.template );
+    template = template( slide.toJSON() );
+    this.$el.append( template )
   },
 
   openMediaFrame : function( e )
@@ -136,7 +138,6 @@ Slideshow.View = Backbone.View.extend({
   addNewSlideBox : function( e )
   {
     this.collection.push( new Slideshow.Slide({ id: _.uniqueId() }) )
-    console.log('worked')
   },
 
   removeSlide : function( e ) {
