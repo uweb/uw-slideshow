@@ -32,6 +32,7 @@ Slideshow.Slides = Backbone.Collection.extend({
   url : function()
   {
     return ajaxurl + '?' + jQuery.param( _.extend( this.parameters, { id : jQuery('#post_ID').val() } ) )
+    console.log(ajaxurl)
   },
 
   initialize: function()
