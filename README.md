@@ -1,5 +1,6 @@
 # UW Slideshow plugin for WordPress
 
+
 This is the slider behind [UW.edu](http://uw.edu) as well as many other sites across the UW WordPress network 
 such as [the IMA](http://uw.edu/ima). 
 
