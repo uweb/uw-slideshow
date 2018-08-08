@@ -157,6 +157,7 @@ class UW_Slideshow
 
   function get_current_uw_slideshow()
   {
+    $slideshow = array();
 
     $slides = get_post_meta( $_GET['id'], 'slides', true );
 
