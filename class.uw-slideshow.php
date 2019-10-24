@@ -19,13 +19,15 @@ class UW_Slideshow
   {
     add_action( 'init', array( $this, 'register_slideshow_post_type' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'register_slideshow_assets' ) );
-    add_action( 'wp_ajax_get_current_uw_slideshow', array( $this, 'get_current_uw_slideshow') );
-    add_action( 'save_post_' . self::POST_TYPE , array( $this, 'save_slideshow') );
+    add_action( 'wp_ajax_get_current_uw_slideshow', array( $this, 'get_current_uw_slideshow' ) );
+    add_action( 'save_post_' . self::POST_TYPE , array( $this, 'save_slideshow' ) );
 
     add_filter( 'manage_'. self::POST_TYPE .'_posts_columns', array( $this, 'add_shortcode_column' ) );
     add_action( 'manage_posts_custom_column' , array( $this, 'add_shortcode_column_content' ) , 10, 2 );
 
     add_shortcode( 'slideshow', array( $this, 'shortcode') );
+    add_action( 'wp_enqueue_scripts', array( $this, 'include_slick_css' ) );
+    add_action( 'wp_footer', array( $this, 'include_slick_js' ) );
   }
 
   function register_slideshow_post_type()
@@ -45,15 +47,22 @@ class UW_Slideshow
         'has_archive' => false,
         'menu_position' => 5,
         'show_in_nav_menus' => true,
-        'register_meta_box_cb' => array( $this, 'add_slideshow_meta_box' ),
+        'register_meta_box_cb' => array( $this, 'add_slideshow_meta_boxes' ),
         'supports' => array( 'title' ),
       )
     );
 
   }
 
-  function add_slideshow_meta_box()
+  function add_slideshow_meta_boxes()
   {
+    add_meta_box(
+      'slick_slider',
+      'Slick Slider',
+      array( $this, 'add_slick_slider_meta_box_html' ),
+      self::POST_TYPE
+    );
+
     add_meta_box(
       self::POST_TYPE,
       self::META_BOX_TITLE,
@@ -77,8 +86,19 @@ class UW_Slideshow
 
   }
 
-  function save_slideshow( $post_id ) {
+  function add_slick_slider_meta_box_html() 
+  {
+    wp_nonce_field( 'slick_slider_meta_box', 'slick_slider_meta_box_nonce' );
+    global $post;
+    $custom = get_post_custom( $post->ID );
+    $slick_slider = $custom[ 'slick_slider' ][0];
+		?><p>Check the box below to use <a href='https://kenwheeler.github.io/slick/' target="_blank">Slick Slider</a> styles and functionality in your slideshow.</p> <?php
+    echo "<p style='margin-bottom:0.5em!important'><input name='slick_slider' type='checkbox' value='true'" . checked( 'true', $slick_slider, false ) . "/> Use Slick Slider</p>";
 
+  }
+
+  function save_slideshow( $post_id ) 
+  {
     if ( ! empty( $_POST ) && ! check_admin_referer( self::POST_TYPE . '_meta_box', self::POST_TYPE . '_meta_box_nonce' ) ) {
         return $post_id;
     }
@@ -91,26 +111,27 @@ class UW_Slideshow
             return $post_id;
 
     } else {
-            if ( !current_user_can( 'edit_post', $post_id ) )
-                return $post_id;
+        if ( !current_user_can( 'edit_post', $post_id ) )
+            return $post_id;
     }
 
-    if ( isset( $_POST['slides'] ) )
+    if ( isset( $_POST['slides'] ) ) {
         update_post_meta( $post_id, 'slides', $_POST['slides'] );
-
+        update_post_meta( $post_id, 'slick_slider', $_POST['slick_slider'] );
+    }
 
   }
 
   function register_slideshow_assets()
-  {
-    wp_enqueue_script( self::POST_TYPE, plugins_url( 'js/admin.uw-slideshow.dev.js', __FILE__ ), array('backbone', 'jquery-ui-sortable') );
+  { 
+    wp_enqueue_script( self::POST_TYPE, plugins_url( 'js/admin.uw-slideshow.dev.js', __FILE__ ), array( 'backbone', 'jquery-ui-sortable' ) );
     wp_enqueue_style( self::POST_TYPE, plugins_url( 'css/admin.uw-slideshow.css', __FILE__ ) );
     wp_enqueue_media();
   }
 
   function add_shortcode_column( $columns )
   {
-    return array_merge( array_slice( $columns, 0, 2 ), array('shortcode'=>'Shortcode'), array_slice( $columns, 2, null ));
+    return array_merge( array_slice( $columns, 0, 2 ), array( 'shortcode'=>'Shortcode' ), array_slice( $columns, 2, null ) );
   }
 
   function add_shortcode_column_content( $column, $post_id )
@@ -124,35 +145,60 @@ class UW_Slideshow
     $atts = (object) shortcode_atts( array(
       'id' => null,
       'simple' => false,
-    ), $atts);
+    ), $atts );
 
     if ( ! $atts->id ) return;
+
+    $custom_fields = get_post_custom( $atts->id );
+    $slick_slider = $custom_fields[ 'slick_slider' ][0];
 
     $slides = (object) get_post_meta( $atts->id, 'slides', true );
 
 
    // 137-141 Creates for a simple slideshow
 
-    $class = ( $atts->simple === "true" ? ' photo-slider' : null);
+    $class = ( $atts->simple === "true" ? ' photo-slider' : null );
 
-    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $class . ' ' . 'slideshow-' . $atts->id . '">';
+    $slidereturn = '<div class="find-slideshow"><div tabIndex="0" class="uw-slideshow' . $class . ' ' . 'slideshow-' . $atts->id . '">';
 
-    foreach ($slides as $slide )
-    {
-      $slide = (object) $slide;
-      $slide->esctitle = esc_attr( $slide->title );
-      $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
-              "<a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
-              "<div>" .
-                "<h3 tabIndex='-1'><a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a>".
-                "</h3>".
-                "<p>{$slide->text}</p>" .
-              "</div>" .
-            "</div>";
+    if ( $slick_slider ) {
+      foreach ( $slides as $slide )
+      {
+        $slide = (object) $slide;
+        $slide->esctitle = esc_attr( $slide->title );
+        $slidereturn .= "<div style='position:relative'><a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' style='width:100%;height:auto' /></a>";
+        $slidereturn .= $slide->text !== "" ? "<div class='slick-caption'><p>{$slide->text}</p></div>" : "";
+        $slidereturn .= "</div>";
+      }
+    } else {
+      foreach ( $slides as $slide )
+      {
+        $slide = (object) $slide;
+        $slide->esctitle = esc_attr( $slide->title );
+        $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
+                "<a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
+                "<div>" .
+                  "<h3 tabIndex='-1'><a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'>{$slide->title}</a>".
+                  "</h3>".
+                  "<p>{$slide->text}</p>" .
+                "</div>" .
+              "</div>";
+      }
     }
-    return $slidereturn . '</div>';
+    return ( $slidereturn . "</div><input class='slideshow-id' type='hidden' value='" . $slick_slider . "' /></div>" );
+  }
 
+  function include_slick_css() 
+  {
+    wp_enqueue_style( 'slick_css', plugins_url( 'slick/slick.css', __FILE__ ) );
+    wp_enqueue_style( 'slick_theme_css', plugins_url( 'slick/slick-theme.css', __FILE__ ) );
+    wp_enqueue_style( 'custom_slick_css', plugins_url( 'css/slick-slideshow.css', __FILE__ ) );
+  }
 
+  function include_slick_js()
+  {
+    wp_enqueue_script( 'slick_slideshow_js', plugins_url( 'slick/slick.js', __FILE__ ) );
+    wp_enqueue_script( 'add_slick_js', plugins_url( 'js/add-slick-slider.js', __FILE__ ) );
   }
 
   function get_current_uw_slideshow()
@@ -162,7 +208,7 @@ class UW_Slideshow
 
     $slides = $slides ? $slides : array();
 
-    foreach ($slides as $slide )
+    foreach ( $slides as $slide )
     {
       $slideshow[] = $slide;
     }
@@ -189,6 +235,5 @@ class UW_Slideshow
 
 
 }
-
 
 new UW_Slideshow;
