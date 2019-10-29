@@ -9,7 +9,7 @@ $( '.slideshow-id' ).each( function() {
         var slideshowClass = $( this ).closest( '.find-slideshow' ).find( '.uw-slideshow' ).attr( 'class' );
         slideshowClass = '.' + slideshowClass.replace(/ /g, '.');
         var output = "";
-        output += '\<script\>$("' + slideshowClass + '").slick({dots: true, arrows: true, fade: true});\</script\>';
+        output += '\<script\>$("' + slideshowClass + '").slick({dots: true, arrows: true, fade: true, adaptiveHeight: true});\</script\>';
         $( 'body' ).append( output );
     }
 } );
