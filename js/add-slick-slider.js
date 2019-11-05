@@ -1,6 +1,6 @@
 /**
  * Adds Slick Slideshow styles and functionality to each slideshow selected to use Slick.
- * Fade, arrows, and dots are the Slick settings that are activated by default.
+ * Fade, arrows, dots and adaptiveHeight are the Slick settings that are activated by default.
  */
 
 $( '.slideshow-id' ).each( function() {

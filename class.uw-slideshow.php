@@ -165,7 +165,11 @@ class UW_Slideshow
       foreach ( $slides as $slide )
       {
         $slide = (object) $slide;
-        $slide->esctitle = esc_attr( $slide->title );
+        $slide->title = empty($slide->title) ? '' : $slide->title;
+        $slide->esctitle = empty( $slide->title ) ? '' : esc_attr( $slide->title );
+        $slide->link =  empty( $slide->link ) ? '' : $slide->link;
+        $slide->text =  empty( $slide->text ) ? '' : $slide->text;
+        $slide->image = empty( $slide->image ) ? '' : $slide->image;
         $slidereturn .= "<div style='position:relative'><a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' style='width:100%;height:auto' /></a>";
         $slidereturn .= $slide->text !== "" ? "<div class='slick-caption'><p>{$slide->text}</p></div>" : "";
         $slidereturn .= "</div>";
@@ -174,7 +178,11 @@ class UW_Slideshow
       foreach ( $slides as $slide )
       {
         $slide = (object) $slide;
-        $slide->esctitle = esc_attr( $slide->title );
+        $slide->title = empty($slide->title) ? '' : $slide->title;
+        $slide->esctitle = empty( $slide->title ) ? '' : esc_attr( $slide->title );
+        $slide->link =  empty( $slide->link ) ? '' : $slide->link;
+        $slide->text =  empty( $slide->text ) ? '' : $slide->text;
+        $slide->image = empty( $slide->image ) ? '' : $slide->image;
         $slidereturn .=  "<div class='slide " . ($slide->text || $slide->title ? 'has-text' : 'no-text') . "'>" .
                 "<a tabIndex='-1' href='{$slide->link}' title='{$slide->esctitle}'><img src='{$slide->image}' title='{$slide->esctitle}' /></a>" .
                 "<div>" .
@@ -203,6 +211,7 @@ class UW_Slideshow
 
   function get_current_uw_slideshow()
   {
+    $slideshow = array();
 
     $slides = get_post_meta( $_GET['id'], 'slides', true );
 
