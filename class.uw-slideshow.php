@@ -124,6 +124,7 @@ class UW_Slideshow
     $atts = (object) shortcode_atts( array(
       'id' => null,
       'simple' => false,
+      'fullwidth' => false,
     ), $atts);
 
     if ( ! $atts->id ) return;
@@ -134,8 +135,9 @@ class UW_Slideshow
    // 137-141 Creates for a simple slideshow
 
     $class = ( $atts->simple === "true" ? ' photo-slider' : null);
+    $fullwidth = ( 'true' === $atts->fullwidth ? ' fullwidth' : null );
 
-    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $class . ' ' . 'slideshow-' . $atts->id . '">';
+    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $fullwidth . ' ' . $class . ' ' . 'slideshow-' . $atts->id . '">';
 
     foreach ($slides as $slide )
     {
