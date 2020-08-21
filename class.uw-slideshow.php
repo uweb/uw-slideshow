@@ -125,6 +125,7 @@ class UW_Slideshow
       'id' => null,
       'simple' => false,
       'fullwidth' => false,
+      'tallerimage' => false,
     ), $atts);
 
     if ( ! $atts->id ) return;
@@ -136,8 +137,9 @@ class UW_Slideshow
 
     $class = ( $atts->simple === "true" ? ' photo-slider' : null);
     $fullwidth = ( 'true' === $atts->fullwidth ? ' fullwidth' : null );
+    $tallerimage = ( 'true' === $atts->tallerimage ? ' tallerimage' : null );
 
-    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $fullwidth . ' ' . $class . ' ' . 'slideshow-' . $atts->id . '">';
+    $slidereturn = '<div tabIndex="0" class="uw-slideshow' . $fullwidth . ' ' . $tallerimage . ' ' . $class . ' ' . 'slideshow-' . $atts->id . '">';
 
     foreach ($slides as $slide )
     {
